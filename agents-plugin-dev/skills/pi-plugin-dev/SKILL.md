@@ -1,6 +1,6 @@
 ---
 name: pi-plugin-dev
-description: 针对 PI 平台开发扩展（Extension），涵盖项目初始化、事件 Hook 编写、自定义工具注册、命令注册等全流程。依据 PI 官方规范实现。
+description: 针对 PI 平台开发 TypeScript 扩展（Extension），涵盖项目初始化、事件 Hook 编写、自定义工具注册、命令注册等全流程。PI 扩展使用 TypeScript 编写，通过导出默认工厂函数扩展 PI 行为。依据 PI 官方规范实现。
 disable-model-invocation: true
 ---
 
@@ -44,12 +44,15 @@ disable-model-invocation: true
 2. **创建目录结构**（参考 [官方扩展位置](https://pi.dev/docs/latest/extensions#extension-locations)）：
 
 ```
-# 单文件扩展
+# 单文件扩展（全局）
 ~/.pi/agent/extensions/my-extension.ts
+
+# 单文件扩展（项目级）
+.pi/extensions/my-extension.ts
 
 # 多文件扩展（目录）
 ~/.pi/agent/extensions/my-extension/
-├── index.ts          # 入口文件（导出默认函数）
+├── index.ts          # 入口文件（导出默认工厂函数）
 ├── tools.ts          # 工具模块（可选）
 └── utils.ts          # 工具函数（可选）
 
@@ -60,6 +63,8 @@ disable-model-invocation: true
 └── src/
     └── index.ts
 ```
+
+> ⚠️ **注意**：PI 扩展不使用 `plugin.json` 清单格式。扩展是 **TypeScript 模块**，通过导出默认工厂函数（`export default function(pi: ExtensionAPI)`）注册事件、工具和命令。配置文件在 `settings.json` 中通过 `packages` 和 `extensions` 字段声明。
 
 ### 第三步：编写扩展基本结构
 

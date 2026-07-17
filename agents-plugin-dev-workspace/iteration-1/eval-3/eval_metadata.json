@@ -1,0 +1,10 @@
+{
+  "eval_id": 3,
+  "eval_name": "pi-extension-custom-tool",
+  "prompt": "帮我开发一个 PI 扩展，功能是每次会话开始时自动通知用户，再加一个自定义工具。",
+  "expectations": [
+    "入口 SKILL.md 识别出 PI 平台意图",
+    "正确引导至 pi-plugin-dev 子 Skill",
+    "传递了用户的具体需求（session_start 通知 + 自定义工具）"
+  ]
+}

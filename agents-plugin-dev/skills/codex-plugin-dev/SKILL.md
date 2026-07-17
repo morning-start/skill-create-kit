@@ -45,6 +45,8 @@ disable-model-invocation: true
 └── scripts/          # 辅助脚本（可选）
 ```
 
+> ⚠️ **注意**：Codex 不使用 `plugin.json` 清单格式。配置通过 `.codex/config.json` 管理，Skills 放在 `.codex/skills/` 目录下，MCP 插件通过 `config.json` 中的 `mcpServers` 字段配置。
+
 **SKILL.md 格式**：
 ```markdown
 ---

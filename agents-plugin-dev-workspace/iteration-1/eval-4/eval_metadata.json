@@ -1,0 +1,10 @@
+{
+  "eval_id": 4,
+  "eval_name": "codex-mcp-server",
+  "prompt": "我想在 Codex 上搞一个 MCP 服务器插件，用来连接我公司的内部 API，能帮我看看怎么弄吗？",
+  "expectations": [
+    "入口 SKILL.md 识别出 Codex/MCP 平台意图",
+    "正确引导至 codex-plugin-dev 子 Skill",
+    "传递了用户的具体需求（MCP 服务器连接内部 API）"
+  ]
+}

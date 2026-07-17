@@ -1,0 +1,10 @@
+{
+  "eval_id": 5,
+  "eval_name": "claude-code-default-route",
+  "prompt": "帮我开发一个插件，我想在 Claude Code 里加一个代码审查 Agent，每次提交代码后自动审查。",
+  "expectations": [
+    "入口 SKILL.md 识别出 Claude Code 平台意图",
+    "正确引导至 claude-plugin-dev 子 Skill",
+    "传递了用户的具体需求（代码审查 Agent + 自动触发）"
+  ]
+}

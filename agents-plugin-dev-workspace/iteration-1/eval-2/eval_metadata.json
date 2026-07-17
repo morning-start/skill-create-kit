@@ -1,0 +1,10 @@
+{
+  "eval_id": 2,
+  "eval_name": "opencode-event-hook",
+  "prompt": "我想在 OpenCode 上写一个插件，当用户执行 bash 命令时自动记录日志，应该怎么做？",
+  "expectations": [
+    "入口 SKILL.md 识别出 OpenCode 平台意图",
+    "正确引导至 opencode-plugin-dev 子 Skill",
+    "传递了用户的具体需求（bash 命令日志记录）"
+  ]
+}

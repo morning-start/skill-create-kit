@@ -42,10 +42,11 @@ disable-model-invocation: true
 2. **创建目录结构**：
 
 ```
+# 项目级插件
 <plugin-name>/
 ├── .opencode/              # 项目级插件目录
 │   └── plugins/
-│       └── my-plugin.js    # 插件主文件
+│       └── my-plugin.js    # 插件主文件（JS/TS 模块导出）
 ├── package.json            # 依赖声明（可选）
 └── README.md               # 项目说明
 ```
@@ -56,6 +57,8 @@ disable-model-invocation: true
 ~/.config/opencode/plugins/
 └── my-plugin.js
 ```
+
+> ⚠️ **注意**：OpenCode 插件不使用 `plugin.json` 清单格式。插件是 **JavaScript/TypeScript 模块**，通过导出函数注册事件 Hook 和自定义工具。配置文件是 `opencode.json`，用于声明 npm 插件包。
 
 3. **配置依赖项**（如果需要外部包）：
 

@@ -1,0 +1,11 @@
+{
+  "name": "agent-plugin-dev",
+  "displayName": "Agent Plugin Factory",
+  "version": "1.0.0",
+  "description": "跨平台 Agent 插件开发工厂，帮助用户快速创建 Claude Code / OpenCode / PI / Codex 平台的插件",
+  "author": {
+    "name": "Plugin Factory Team"
+  },
+  "keywords": ["plugin", "agent", "scaffold", "factory", "claude-code", "opencode", "pi", "codex"],
+  "skills": "./skills/"
+}

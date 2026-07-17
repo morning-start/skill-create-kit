@@ -1,0 +1,10 @@
+{
+  "eval_id": 1,
+  "eval_name": "claude-code-scaffold",
+  "prompt": "我想开发一个 Claude Code 插件，需要包含 Agent 和 Skill 组件，能帮我搭建一下脚手架吗？",
+  "expectations": [
+    "入口 SKILL.md 识别出 Claude Code 平台意图",
+    "正确引导至 claude-plugin-dev 子 Skill",
+    "传递了用户的具体需求（Agent + Skill 组件）"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "skill_name": "agent-plugin-dev",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我想开发一个 Claude Code 插件，需要包含 Agent 和 Skill 组件，能帮我搭建一下脚手架吗？",
+      "expected_output": "正确路由到 claude-plugin-dev 子 Skill，并开始项目脚手架搭建流程",
+      "files": [],
+      "expectations": [
+        "入口 SKILL.md 识别出 Claude Code 平台意图",
+        "正确引导至 claude-plugin-dev 子 Skill",
+        "传递了用户的具体需求（Agent + Skill 组件）"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我想在 OpenCode 上写一个插件，当用户执行 bash 命令时自动记录日志，应该怎么做？",
+      "expected_output": "正确路由到 opencode-plugin-dev 子 Skill，并开始事件 Hook 开发流程",
+      "files": [],
+      "expectations": [
+        "入口 SKILL.md 识别出 OpenCode 平台意图",
+        "正确引导至 opencode-plugin-dev 子 Skill",
+        "传递了用户的具体需求（bash 命令日志记录）"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "帮我开发一个 PI 扩展，功能是每次会话开始时自动通知用户，再加一个自定义工具。",
+      "expected_output": "正确路由到 pi-plugin-dev 子 Skill，并开始扩展开发流程",
+      "files": [],
+      "expectations": [
+        "入口 SKILL.md 识别出 PI 平台意图",
+        "正确引导至 pi-plugin-dev 子 Skill",
+        "传递了用户的具体需求（session_start 通知 + 自定义工具）"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "我想在 Codex 上搞一个 MCP 服务器插件，用来连接我公司的内部 API，能帮我看看怎么弄吗？",
+      "expected_output": "正确路由到 codex-plugin-dev 子 Skill，并开始 MCP 插件配置流程",
+      "files": [],
+      "expectations": [
+        "入口 SKILL.md 识别出 Codex/MCP 平台意图",
+        "正确引导至 codex-plugin-dev 子 Skill",
+        "传递了用户的具体需求（MCP 服务器连接内部 API）"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "帮我开发一个插件，我想在 Claude Code 里加一个代码审查 Agent，每次提交代码后自动审查。",
+      "expected_output": "正确路由到 claude-plugin-dev 子 Skill（默认兜底或识别 Claude Code）",
+      "files": [],
+      "expectations": [
+        "入口 SKILL.md 识别出 Claude Code 平台意图",
+        "正确引导至 claude-plugin-dev 子 Skill",
+        "传递了用户的具体需求（代码审查 Agent + 自动触发）"
+      ]
+    }
+  ]
+}

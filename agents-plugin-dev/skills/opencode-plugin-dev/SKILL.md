@@ -228,13 +228,76 @@ export const MyPlugin = async ({ client }) => {
    - 在 `opencode.json` 中配置 `"plugin": ["<package-name>"]`
    - 支持带作用域的包名，如 `@my-org/custom-plugin`
 
-## 输出产物
+## 插件市场生命周期（构建 → 优化 → 发布 → 使用）
 
-- 完整的 OpenCode 插件 JavaScript/TypeScript 文件
-- `.opencode/package.json` 依赖配置（可选）
-- 事件 Hook 实现代码
-- 自定义工具实现代码
-- 打包与发布建议
+### 构建
+按本 Skill 前序步骤完成插件开发，编写 JS/TS 模块导出函数。
+
+### 验证与优化
+```bash
+# 将插件放入项目目录测试
+cp my-plugin.js .opencode/plugins/
+
+# 或放入全局目录
+cp my-plugin.js ~/.config/opencode/plugins/
+```
+启动 OpenCode 后插件自动加载，无需额外步骤。
+
+### 发布
+
+OpenCode 插件通过 **npm** 分发，或直接分享文件。
+
+**方式一：npm 发布**
+```bash
+# 1. 发布到 npm
+npm publish
+
+# 2. 用户在 opencode.json 中配置
+{
+  "plugin": ["@my-org/my-plugin"]
+}
+```
+OpenCode 启动时自动通过 Bun 安装 npm 插件。
+
+**方式二：直接分享文件**
+用户将 `.js`/`.ts` 文件放入 `.opencode/plugins/` 或 `~/.config/opencode/plugins/` 即可。
+
+### 用户安装
+
+```bash
+# 方式一：npm 包（在 opencode.json 中配置）
+{
+  "plugin": [
+    "opencode-helicone-session",
+    "@my-org/custom-plugin"
+  ]
+}
+
+# 方式二：本地文件
+# 直接放入以下任一目录即可自动加载
+.opencode/plugins/my-plugin.js
+~/.config/opencode/plugins/my-plugin.js
+```
+
+### 加载顺序
+
+插件从所有来源加载，钩子按顺序执行：
+1. 全局配置 (`~/.config/opencode/opencode.json`)
+2. 项目配置 (`opencode.json`)
+3. 全局插件目录 (`~/.config/opencode/plugins/`)
+4. 项目插件目录 (`.opencode/plugins/`)
+
+### 依赖管理
+
+如果需要外部 npm 包，在 `.opencode/package.json` 中声明：
+```json
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+OpenCode 启动时自动运行 `bun install` 安装依赖。
 
 ## 官方文档参考
 

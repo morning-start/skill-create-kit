@@ -203,13 +203,80 @@ ctx.ui.setWidget("my-ext", ["行1", "行2"]);
 3. **npm 发布**：通过 `settings.json` 中的 `packages` 字段配置 npm 包
 4. **热重载**：自动发现目录中的扩展可通过 `/reload` 热重载
 
-## 输出产物
+## 扩展市场生命周期（构建 → 优化 → 发布 → 使用）
 
-- 完整的 PI 扩展 TypeScript/JavaScript 文件
-- `package.json` 依赖配置（可选）
-- 事件订阅实现代码
-- 自定义工具/命令实现代码
-- 打包与发布建议
+### 构建
+按本 Skill 前序步骤完成扩展开发，编写 TypeScript 工厂函数。
+
+### 验证与优化
+```bash
+# 快速测试
+pi -e ./my-extension.ts
+
+# 放入自动发现目录测试
+cp my-extension.ts ~/.pi/agent/extensions/
+# 或项目级
+cp my-extension.ts .pi/extensions/
+```
+
+### 发布
+
+PI 扩展通过 **npm** 或 **Git** 分发。
+
+**方式一：npm 发布**
+```bash
+npm publish
+```
+用户在 `settings.json` 中配置：
+```json
+{
+  "packages": ["npm:@foo/bar@1.0.0"]
+}
+```
+
+**方式二：Git 发布**
+```bash
+git push
+```
+用户在 `settings.json` 中配置：
+```json
+{
+  "packages": ["git:github.com/user/repo@v1"]
+}
+```
+
+**方式三：直接分享文件**
+用户将 `.ts` 文件放入 `~/.pi/agent/extensions/` 或 `.pi/extensions/` 即可自动发现。
+
+### 用户安装
+
+```bash
+# 方式一：本地文件（自动发现，无需配置）
+~/.pi/agent/extensions/my-extension.ts       # 全局
+.pi/extensions/my-extension.ts               # 项目级
+
+# 方式二：包管理（在 settings.json 中配置）
+{
+  "packages": [
+    "npm:@foo/bar@1.0.0",
+    "git:github.com/user/repo@v1"
+  ],
+  "extensions": [
+    "/path/to/local/extension.ts"
+  ]
+}
+
+# 方式三：快速测试
+pi -e ./my-extension.ts
+```
+
+### 热重载
+
+自动发现目录中的扩展可通过 `/reload` 热重载，无需重启 PI。
+
+### 安全注意事项
+
+> ⚠️ 扩展运行在完整系统权限下，可执行任意代码。仅安装来自可信来源的扩展。
 
 ## 官方文档参考
 

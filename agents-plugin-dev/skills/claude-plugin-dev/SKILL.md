@@ -150,12 +150,95 @@ allowed-tools: Read, Grep, Glob, Bash
 4. 检查 Agent 和 Skill 的 YAML Frontmatter 格式
 5. 建议运行 `claude plugin validate ./<plugin> --strict` 进行严格验证
 
-## 输出产物
+## 插件市场生命周期（构建 → 优化 → 发布 → 使用）
 
-- 完整的 Claude Code 插件项目目录结构
-- `.claude-plugin/plugin.json` 插件清单文件
-- 按需创建 Agent / Skill / Hook 等组件文件
-- 验证报告与打包建议
+### 构建
+按本 Skill 前序步骤完成插件开发，确保 `.claude-plugin/plugin.json` 完整，组件目录结构正确。
+
+### 验证与优化
+```bash
+# 严格验证插件结构
+claude plugin validate ./<plugin> --strict
+
+# 本地测试安装
+# 将插件目录放入 skills 目录即可自动加载
+cp -r ./<plugin> ~/.claude/skills/
+```
+
+### 发布到市场
+
+Claude Code 插件通过 **[Marketplace](https://code.claude.com/docs/zh-CN/plugin-marketplaces)** 分发。创建 `marketplace.json` 文件来定义插件目录：
+
+```json
+{
+  "name": "my-marketplace",
+  "owner": { "name": "Your Name" },
+  "plugins": [
+    {
+      "name": "my-plugin",
+      "source": "./plugins/my-plugin",
+      "description": "插件功能描述"
+    }
+  ]
+}
+```
+
+**支持的发布方式**：
+
+| 方式 | 说明 | 适用场景 |
+|------|------|---------|
+| 🌐 **GitHub 市场** | 托管在 GitHub 仓库中，通过 `owner/repo` 引用 | 团队/社区分发 |
+| 📦 **npm 包** | 发布为 npm 包，通过 `npm install` 安装 | 需要版本管理的正式发布 |
+| 🔗 **Git URL** | 任何 Git 仓库（GitLab/Bitbucket） | 自托管或企业环境 |
+| 📁 **本地路径** | 本地目录直接引用 | 开发和测试阶段 |
+
+### 用户安装
+
+用户通过以下方式安装插件：
+
+```bash
+# 1. 添加市场
+/plugin marketplace add owner/repo
+
+# 2. 安装插件
+/plugin install my-plugin@marketplace-name
+
+# 3. 重新加载
+/reload-plugins
+```
+
+**安装范围**：
+
+| 范围 | 命令 | 生效范围 |
+|------|------|---------|
+| 👤 用户级 | 默认 | 所有项目可用 |
+| 📁 项目级 | 安装时选 `project` | 通过 `.claude/settings.json` 共享 |
+| 🔒 本地级 | 安装时选 `local` | 仅当前项目，不进版本控制 |
+
+### 用户管理
+
+```bash
+# 查看已安装的插件
+/plugin list
+
+# 禁用/启用
+/plugin disable my-plugin@marketplace
+/plugin enable my-plugin@marketplace
+
+# 卸载
+/plugin uninstall my-plugin@marketplace
+
+# 更新市场
+/plugin marketplace update marketplace-name
+```
+
+### 官方市场
+
+| 市场 | 地址 | 添加命令 |
+|------|------|---------|
+| 🏛️ 官方市场 | `claude-plugins-official` | 自动可用 |
+| 🌍 社区市场 | `anthropics/claude-plugins-community` | `/plugin marketplace add anthropics/claude-plugins-community` |
+| 📚 演示市场 | `anthropics/claude-code` | `/plugin marketplace add anthropics/claude-code` |
 
 ## 官方文档参考
 

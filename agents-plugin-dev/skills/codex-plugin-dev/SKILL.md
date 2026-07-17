@@ -192,14 +192,75 @@ Codex 主配置文件 `.codex/config.json` 支持以下配置：
 3. **配置认证**：OAuth 或其他认证方式
 4. **提交审核**：提交到 ChatGPT App 商店
 
-## 输出产物
+## 插件市场生命周期（构建 → 优化 → 发布 → 使用）
 
-- `.codex/skills/<skill-name>/SKILL.md` — Skill 定义文件
-- `.codex/config.json` — MCP 插件配置
-- `.codex/hooks.json` — Hook 配置文件
-- `.codex/agents/<agent-name>.md` — Agent 定义文件
-- MCP 服务器实现代码
-- 打包与发布建议
+### 构建
+按本 Skill 前序步骤完成开发：编写 Skill、配置 MCP 服务器、设置 Hooks、定义 Agent。
+
+### 验证与优化
+```bash
+# 验证配置文件格式
+# 检查 .codex/config.json 是否为合法 JSON
+# 检查 MCP 服务器是否可正常启动
+```
+
+### 发布
+
+Codex 插件通过多种方式分发：
+
+**方式一：MCP 服务器配置**
+通过 `.codex/config.json` 中的 `mcpServers` 字段配置：
+```json
+{
+  "mcpServers": {
+    "my-plugin": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./mcp-server.js"]
+    }
+  }
+}
+```
+
+**方式二：ChatGPT App 商店**
+构建完成的 App 可提交到 ChatGPT App 商店审核发布：
+1. 构建 MCP 服务器
+2. 构建 UI（可选，使用 ChatKit）
+3. 配置 OAuth 认证
+4. 提交审核
+
+### 用户安装
+
+```bash
+# 方式一：配置文件方式
+# 用户在 .codex/config.json 中配置 MCP 服务器
+{
+  "mcpServers": {
+    "my-plugin": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./path/to/mcp-server.js"]
+    }
+  }
+}
+
+# 方式二：Skills 方式
+# 用户将 Skill 目录放入 .codex/skills/ 即可
+.codex/skills/<skill-name>/SKILL.md
+
+# 方式三：App 商店方式
+# 用户从 ChatGPT App 商店搜索安装
+```
+
+### 配置参考
+
+| 配置项 | 文件位置 | 说明 |
+|--------|---------|------|
+| MCP 插件 | `.codex/config.json` → `mcpServers` | 连接外部工具和服务 |
+| Skills | `.codex/skills/<name>/SKILL.md` | 可复用的指令 |
+| Hooks | `.codex/hooks.json` | 生命周期事件自动响应 |
+| Agents | `.codex/agents/<name>.md` | 自定义 Subagent |
+| 主配置 | `.codex/config.json` | 整体配置入口 |
 
 ## 官方文档参考
 
